@@ -1,0 +1,79 @@
+from graphics import *
+import math
+
+win = GraphWin("Logistic Function", 800, 600)
+
+# Input labels
+r_label = Text(Point(100, 30), "r:")
+r_label.draw(win)
+
+r_entry = Entry(Point(170, 30), 10)
+r_entry.setText("1")
+r_entry.draw(win)
+
+x0_label = Text(Point(300, 30), "x0:")
+x0_label.draw(win)
+
+x0_entry = Entry(Point(370, 30), 10)
+x0_entry.setText("0")
+x0_entry.draw(win)
+
+k_label = Text(Point(500, 30), "K:")
+k_label.draw(win)
+
+k_entry = Entry(Point(570, 30), 10)
+k_entry.setText("1")
+k_entry.draw(win)
+
+button = Rectangle(Point(650, 15), Point(750, 45))
+button.draw(win)
+
+button_text = Text(Point(700, 30), "Graph")
+button_text.draw(win)
+
+# Graph area
+x_axis = Line(Point(75, 525), Point(750, 525))
+y_axis = Line(Point(75, 525), Point(75, 75))
+
+x_axis.draw(win)
+y_axis.draw(win)
+
+graph_drawn = False
+
+while True:
+    click = win.getMouse()
+
+    if (650 <= click.getX() <= 750 and
+            15 <= click.getY() <= 45):
+
+        if not graph_drawn:
+            r = float(r_entry.getText())
+            x0 = float(x0_entry.getText())
+            K = float(k_entry.getText())
+
+            previous_point = None
+
+            for x in range(100):
+                t = x
+
+                # Logistic function
+                y = K / (1 + math.exp(-r * (t - x0)))
+
+                screen_x = 75 + x * 6.5
+                screen_y = 525 - (y / K) * 400
+
+                current_point = Point(screen_x, screen_y)
+
+                if previous_point != None:
+                    line = Line(previous_point, current_point)
+                    line.draw(win)
+
+                previous_point = current_point
+
+            button_text.setText("Exit")
+            graph_drawn = True
+
+        else:
+            break
+
+win.close()
