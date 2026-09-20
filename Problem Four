@@ -1,0 +1,30 @@
+from graphics import *
+import math
+
+win = GraphWin("Logistic Function", 700, 500)
+
+# Draw axes
+x_axis = Line(Point(50, 400), Point(650, 400))
+y_axis = Line(Point(50, 400), Point(50, 50))
+
+x_axis.draw(win)
+y_axis.draw(win)
+
+previous_point = None
+
+for x in range(100):
+    y = 1 / (1 + math.exp(-x))
+
+    screen_x = 50 + x * 6
+    screen_y = 400 - y * 300
+
+    current_point = Point(screen_x, screen_y)
+
+    if previous_point != None:
+        line = Line(previous_point, current_point)
+        line.draw(win)
+
+    previous_point = current_point
+
+win.getMouse()
+win.close()
