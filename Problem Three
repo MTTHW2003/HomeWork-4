@@ -1,0 +1,24 @@
+from graphics import *
+import math
+
+win = GraphWin("Logistic Function", 700, 500)
+
+# Graph area
+x_axis = Line(Point(50, 400), Point(650, 400))
+y_axis = Line(Point(50, 400), Point(50, 50))
+
+x_axis.draw(win)
+y_axis.draw(win)
+
+# Plot 100 points
+for x in range(100):
+    y = 1 / (1 + math.exp(-x))
+
+    screen_x = 50 + x * 6
+    screen_y = 400 - y * 300
+
+    point = Point(screen_x, screen_y)
+    point.draw(win)
+
+win.getMouse()
+win.close()
